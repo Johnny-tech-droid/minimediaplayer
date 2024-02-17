@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.media.MediaView?>
+
+
+<BorderPane prefHeight="625.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fernschulen.minimediaplayer.FXMLController">
+   <top>
+       <MenuBar BorderPane.alignment="CENTER">
+           <Menu text="Datei">
+               <items>
+                   <MenuItem fx:id="openMediaMenuItem" text="Öffnen"/>
+                   <MenuItem fx:id="quitAppMenuItem" text="Beenden"/>
+               </items>
+           </Menu>
+           <Menu text="Wiedergabe">
+               <MenuItem fx:id="pauseMediaMenuItem" text="Pause"/>
+               <MenuItem fx:id="playMediaMenuItem" text="Wiedergeben"/>
+               <MenuItem fx:id="stopMediaMenuItem" text="Stopp"/>
+           </Menu>
+           <Menu text="Help">
+               <MenuItem text="About"/>
+           </Menu>
+       </MenuBar>
+   </top>
+   <bottom>
+      <ToolBar prefHeight="45.0" prefWidth="801.0">
+        <items>
+          <Button fx:id="openMediaBtn" text="Öffnen" />
+            <Button fx:id="playMediaBtn" text="Wiedergabe" />
+            <Button fx:id="pauseMediaBtn" text="Pause" />
+            <Button fx:id="stopMediaBtn" text="Stopp" />
+            <Button fx:id="muteMediaBtn" text="Stumm" />
+        </items>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <padding>
+            <Insets left="50.0" />
+         </padding>
+      </ToolBar>
+   </bottom>
+   <left>
+      <ListView fx:id="liste" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <MediaView fx:id="mediaView" BorderPane.alignment="CENTER">
+         <viewport>
+            <Rectangle2D height="420.0" width="420.0" />
+         </viewport>
+      </MediaView>
+   </center>
+</BorderPane>
