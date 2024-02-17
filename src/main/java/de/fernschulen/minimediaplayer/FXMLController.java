@@ -14,10 +14,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import java.io.File;
 
-import static org.kordamp.ikonli.fontawesome5.FontAwesomeSolid.*;
+
+
 
 public class FXMLController {
     @FXML
@@ -62,11 +64,11 @@ public class FXMLController {
         pauseMediaMenuItem.setOnAction(e -> mediumPausieren());
         stopMediaMenuItem.setOnAction(e-> mediumStoppen());
         quitAppMenuItem.setOnAction(e-> Platform.exit());
-        setIcon(openMediaBtn, FOLDER_OPEN);
-        setIcon(playMediaBtn, PLAY);
-        setIcon(pauseMediaBtn, PAUSE);
-        setIcon(muteMediaBtn, VOLUME_OFF);
-        setIcon(stopMediaBtn, STOP);
+        setIcon(openMediaBtn, FontAwesomeSolid.FOLDER_OPEN);
+        setIcon(playMediaBtn, FontAwesomeSolid.PLAY);
+        setIcon(pauseMediaBtn, FontAwesomeSolid.PAUSE);
+        setIcon(muteMediaBtn, FontAwesomeSolid.VOLUME_OFF);
+        setIcon(stopMediaBtn, FontAwesomeSolid.STOP);
         mediaView.setFitHeight(0);
         mediaView.setFitWidth(0);
     }

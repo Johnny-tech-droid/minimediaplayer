@@ -30,4 +30,8 @@ public class MiniPlayer extends Application {
         }
 
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
