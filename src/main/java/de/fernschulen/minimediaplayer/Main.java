@@ -1,7 +1,9 @@
 package de.fernschulen.minimediaplayer;
 
+import javafx.stage.Stage;
+
 public class Main {
     public static void main(String[] args) {
-        new MiniPlayer();
+        new MiniPlayer().start(new Stage());
     }
 }

@@ -17,10 +17,8 @@
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <Menu text="Datei">
-               <items>
-                   <MenuItem fx:id="openMediaMenuItem" text="Öffnen"/>
-                   <MenuItem fx:id="quitAppMenuItem" text="Beenden"/>
-               </items>
+               <MenuItem fx:id="openMediaMenuItem" text="Öffnen"/>
+               <MenuItem fx:id="quitAppMenuItem" text="Beenden"/>
            </Menu>
            <Menu text="Wiedergabe">
                <MenuItem fx:id="pauseMediaMenuItem" text="Pause"/>
@@ -33,21 +31,20 @@
        </MenuBar>
    </top>
    <bottom>
-      <ToolBar prefHeight="45.0" prefWidth="801.0">
-        <items>
-          <Button fx:id="openMediaBtn" text="Öffnen" />
-            <Button fx:id="playMediaBtn" text="Wiedergabe" />
-            <Button fx:id="pauseMediaBtn" text="Pause" />
-            <Button fx:id="stopMediaBtn" text="Stopp" />
-            <Button fx:id="muteMediaBtn" text="Stumm" />
-        </items>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <padding>
-            <Insets left="50.0" />
-         </padding>
-      </ToolBar>
+       <ToolBar prefHeight="45.0" prefWidth="801.0">
+           <cursor>
+
+               <Cursor fx:constant="HAND"/>
+           </cursor>
+           <padding>
+               <Insets left="50.0"/>
+           </padding>
+           <Button fx:id="openMediaBtn" text="Öffnen"/>
+           <Button fx:id="playMediaBtn" text="Wiedergabe"/>
+           <Button fx:id="pauseMediaBtn" text="Pause"/>
+           <Button fx:id="stopMediaBtn" text="Stopp"/>
+           <Button fx:id="muteMediaBtn" text="Stumm"/>
+       </ToolBar>
    </bottom>
    <left>
       <ListView fx:id="liste" BorderPane.alignment="CENTER" />
