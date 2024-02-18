@@ -129,8 +129,7 @@ public class FXMLController {
      * @return Die ausgewählte Datei
      */
     private File getValueFromList() {
-        String path = liste.getSelectionModel().getSelectedItem().toString();
-
+        String path = liste.getSelectionModel().getSelectedItem();
         return new File(path);
     }
     /**
