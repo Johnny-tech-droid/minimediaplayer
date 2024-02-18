@@ -2,32 +2,30 @@ package de.fernschulen.minimediaplayer;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+
 import javafx.stage.FileChooser;
 
 import javafx.stage.Stage;
+
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 
 import java.io.File;
 
-
+import javafx.scene.media.MediaPlayer.*;
 
 
 public class FXMLController {
     @FXML
     private Button openMediaBtn;
     @FXML
-    private Button playMediaBtn;
-    @FXML
-    private Button pauseMediaBtn;
+    private Button playPauseMediaBtn;
+
     @FXML
     private Button stopMediaBtn;
     @FXML
@@ -44,6 +42,7 @@ public class FXMLController {
     private MenuItem stopMediaMenuItem;
     @FXML
     private MediaView mediaView;
+
     private MediaPlayer mediaplayer;
     @FXML
     private ListView<String> liste;
@@ -56,22 +55,22 @@ public class FXMLController {
         openMediaBtn.setOnAction(e -> mediumOeffnen());
 
         openMediaMenuItem.setOnAction(e-> mediumOeffnen());
-        playMediaBtn.setOnAction(e -> mediumAbspielen());
-        pauseMediaBtn.setOnAction(e -> mediumPausieren());
+        playPauseMediaBtn.setOnAction(e-> startStopMedium());
         stopMediaBtn.setOnAction(e-> mediumStoppen());
         muteMediaBtn.setOnAction(e-> mediumStumm());
         playMediaMenuItem.setOnAction(e -> mediumAbspielen());
         pauseMediaMenuItem.setOnAction(e -> mediumPausieren());
         stopMediaMenuItem.setOnAction(e-> mediumStoppen());
         quitAppMenuItem.setOnAction(e-> Platform.exit());
+
         setIcon(openMediaBtn, FontAwesomeSolid.FOLDER_OPEN);
-        setIcon(playMediaBtn, FontAwesomeSolid.PLAY);
-        setIcon(pauseMediaBtn, FontAwesomeSolid.PAUSE);
-        setIcon(muteMediaBtn, FontAwesomeSolid.VOLUME_OFF);
-        setIcon(stopMediaBtn, FontAwesomeSolid.STOP);
-        mediaView.setFitHeight(0);
-        mediaView.setFitWidth(0);
+        liste.setOnMouseClicked(e-> openFromList());
+
     }
+
+    /**
+     * Initialisiert den FXML-Controller, richtet Event-Handler ein und setzt Icons
+     */
 
     private void mediumOeffnen() {
         FileChooser openFileDialog = new FileChooser();
@@ -83,21 +82,38 @@ public class FXMLController {
         String path = "/Users/developer/Downloads/JAVA18D_Uebungsdateien_Software";
         openFileDialog.setInitialDirectory(new File(path));
         File datei = openFileDialog.showOpenDialog(stage);
-        if (datei != null)
+        if (datei != null) {
             dateiLaden(datei);
+            if (mediaplayer.getStatus().equals(Status.PAUSED))
+                setIcon(playPauseMediaBtn, FontAwesomeSolid.PLAY);
+            if (mediaplayer.getStatus().equals(Status.PLAYING))
+                setIcon(playPauseMediaBtn, FontAwesomeSolid.PAUSE);
+            setIcon(muteMediaBtn, FontAwesomeSolid.VOLUME_OFF);
+            setIcon(stopMediaBtn, FontAwesomeSolid.STOP);
+        }
+
     }
 
+    /**
+     * Öffnet einen Dateidialog zur Auswahl von Mediendateien und lädt die ausgewählte Datei.
+     * und aktualisiert die Benutzeroberfläche
+     */
     private void dateiLaden(File datei) {
-        if (mediaplayer != null && mediaplayer.getStatus() == MediaPlayer.Status.PLAYING) {
+        if (mediaplayer != null && mediaplayer.getStatus() == Status.PLAYING) {
             mediaplayer.stop();
+
         }
         try {
            Media medium = new Media(datei.toURI().toString());
            mediaplayer = new MediaPlayer(medium);
            mediaView.setMediaPlayer(mediaplayer);
-
+//           mediaView.setFitWidth(619);
+//           mediaView.setFitHeight(593);
+           mediaView.setPreserveRatio(true);
            mediaplayer.play();
-           liste.getItems().add(datei.toString());
+           setIcon(playPauseMediaBtn, FontAwesomeSolid.PAUSE);
+           if (!liste.getItems().contains(datei.toString()))
+               liste.getItems().add(datei.toString());
            stage.setTitle("JavaFX Multimedia-Player " + datei);
         } catch (Exception ex) {
             String tempString = "Beim Laden hat es ein Problem gegeben.\n";
@@ -108,34 +124,91 @@ public class FXMLController {
         }
     }
 
+    /**
+     * Ruft das Dateiobjekt von dem ausgewählten Element in der Medienliste ab.
+     * @return Die ausgewählte Datei
+     */
+    private File getValueFromList() {
+        String path = liste.getSelectionModel().getSelectedItem().toString();
+
+        return new File(path);
+    }
+    /**
+     * Öffnet die ausgewählte Mediendatei aus der Liste und lädt sie in den Media Player.
+     */
+    private void openFromList() {
+        if (liste.getSelectionModel().getSelectedItem() != null) {
+            dateiLaden(getValueFromList());
+        }
+    }
+    /**
+     * Spielt die aktuell geladene Mediendatei ab.
+     */
     private void mediumAbspielen() {
-        if (mediaplayer != null)
+        if (mediaplayer != null) {
             mediaplayer.play();
+            setIcon(playPauseMediaBtn, FontAwesomeSolid.PAUSE);
+        }
+
     }
+    /**
+     * Pausiert die aktuell geladene Mediendatei.
+     */
     private void mediumPausieren() {
-        if (mediaplayer != null)
+        if (mediaplayer != null) {
             mediaplayer.pause();
+            setIcon(playPauseMediaBtn, FontAwesomeSolid.PLAY);
+
+        }
     }
+    /**
+     * Wechselt zwischen Abspielen und Pausieren der aktuell geladenen Mediendatei.
+     */
+    private void startStopMedium() {
+        if (mediaplayer != null) {
+            if (mediaplayer.getStatus().equals(Status.PLAYING)) {
+                mediaplayer.pause();
+                setIcon(playPauseMediaBtn, FontAwesomeSolid.PLAY);
+            } else {
+                mediaplayer.play();
+                setIcon(playPauseMediaBtn, FontAwesomeSolid.PAUSE);
+            }
+        }
+    }
+
+    /**
+     * Stoppt die gerade abgespielte Mediendatei.
+     */
     private void mediumStoppen() {
-        if (mediaplayer != null)
+        if (mediaplayer != null) {
             mediaplayer.stop();
+            setIcon(playPauseMediaBtn, FontAwesomeSolid.PLAY);
+
+
+        }
+
     }
+    /**
+     * Schaltet den Ton der gerade geladenen Mediendatei stumm oder wieder ein.
+     */
     private void mediumStumm() {
         if (mediaplayer != null)
-            if (!mediaplayer.isMute()) {
-                mediaplayer.setMute(true);
-            } else {
-                mediaplayer.setMute(false);
-            }
+            mediaplayer.setMute(!mediaplayer.isMute());
 
 
     }
-
+    /**
+     * Setzt das Icon eines JavaFX-Buttons mit einem angegebenen FontAwesome-Icon.
+     *
+     * @param button Der Button, für den das Icon gesetzt werden soll.
+     * @param name   Der Name des FontAwesome-Icons.
+     */
     private void setIcon(Button button, Ikon name) {
         FontIcon tempIcon = new FontIcon();
         tempIcon.setIconCode(name);
         button.setGraphic(tempIcon);
     }
+
 
 
 

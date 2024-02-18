@@ -20,7 +20,7 @@ public class MiniPlayer extends Application {
             FXMLController controller = loader.getController();
             controller.setMeineStage(stage);
             Scene scene = new Scene(root);
-
+            stage.setMaximized(true);
             stage.setTitle("Ein einfacher Multimedia-Player");
             stage.setScene(scene);
 

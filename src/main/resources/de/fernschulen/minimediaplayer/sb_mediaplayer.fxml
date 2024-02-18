@@ -8,52 +8,63 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
+<VBox alignment="CENTER" prefHeight="593.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fernschulen.minimediaplayer.FXMLController">
+    <MenuBar VBox.vgrow="ALWAYS">
+        <Menu text="Datei">
+            <MenuItem fx:id="openMediaMenuItem" text="Öffnen"/>
+            <MenuItem fx:id="quitAppMenuItem" text="Beenden"/>
+        </Menu>
+        <Menu text="Wiedergabe">
+            <MenuItem fx:id="pauseMediaMenuItem" text="Pause"/>
+            <MenuItem fx:id="playMediaMenuItem" text="Wiedergeben"/>
+            <MenuItem fx:id="stopMediaMenuItem" text="Stopp"/>
+        </Menu>
+        <Menu text="Help">
+            <MenuItem text="About"/>
+        </Menu>
+    </MenuBar>
+    <ToolBar prefHeight="26.0" prefWidth="288.0">
+        <cursor>
 
-<BorderPane prefHeight="625.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fernschulen.minimediaplayer.FXMLController">
-   <top>
-       <MenuBar BorderPane.alignment="CENTER">
-           <Menu text="Datei">
-               <MenuItem fx:id="openMediaMenuItem" text="Öffnen"/>
-               <MenuItem fx:id="quitAppMenuItem" text="Beenden"/>
-           </Menu>
-           <Menu text="Wiedergabe">
-               <MenuItem fx:id="pauseMediaMenuItem" text="Pause"/>
-               <MenuItem fx:id="playMediaMenuItem" text="Wiedergeben"/>
-               <MenuItem fx:id="stopMediaMenuItem" text="Stopp"/>
-           </Menu>
-           <Menu text="Help">
-               <MenuItem text="About"/>
-           </Menu>
-       </MenuBar>
-   </top>
-   <bottom>
-       <ToolBar prefHeight="45.0" prefWidth="801.0">
-           <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+        <Button fx:id="openMediaBtn"/>
+        <Button fx:id="playPauseMediaBtn"/>
 
-               <Cursor fx:constant="HAND"/>
-           </cursor>
-           <padding>
-               <Insets left="50.0"/>
-           </padding>
-           <Button fx:id="openMediaBtn" text="Öffnen"/>
-           <Button fx:id="playMediaBtn" text="Wiedergabe"/>
-           <Button fx:id="pauseMediaBtn" text="Pause"/>
-           <Button fx:id="stopMediaBtn" text="Stopp"/>
-           <Button fx:id="muteMediaBtn" text="Stumm"/>
-       </ToolBar>
-   </bottom>
-   <left>
-      <ListView fx:id="liste" BorderPane.alignment="CENTER" />
-   </left>
-   <center>
-      <MediaView fx:id="mediaView" BorderPane.alignment="CENTER">
-         <viewport>
-            <Rectangle2D height="420.0" width="420.0" />
-         </viewport>
-      </MediaView>
-   </center>
-</BorderPane>
+        <Button fx:id="stopMediaBtn"/>
+        <Button fx:id="muteMediaBtn"/>
+    </ToolBar>
+    <AnchorPane VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.24650912996777657" prefHeight="578.0" prefWidth="884.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane prefHeight="490.0" prefWidth="256.0">
+                    <ListView fx:id="liste" prefHeight="576.0" prefWidth="256.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="0.0"/>
+                </AnchorPane>
+                <AnchorPane prefHeight="420.0" prefWidth="561.0">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+
+                    <MediaView fx:id="mediaView" layoutX="13.0" layoutY="13.0" AnchorPane.bottomAnchor="0.0"
+                               AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0"
+                               AnchorPane.topAnchor="0.0">
+                        <viewport>
+                            <Rectangle2D/>
+                        </viewport>
+                    </MediaView>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </AnchorPane>
+</VBox>
