@@ -79,7 +79,7 @@ public class FXMLController {
         openFileDialog.getExtensionFilters().add(mp4Filter);
         FileChooser.ExtensionFilter mp3Filter = new FileChooser.ExtensionFilter("Audiodateien", "*.mp3");
         openFileDialog.getExtensionFilters().add(mp3Filter);
-        String path = "/Users/developer/Downloads/JAVA18D_Uebungsdateien_Software";
+        String path = System.getProperty("user.home");
         openFileDialog.setInitialDirectory(new File(path));
         File datei = openFileDialog.showOpenDialog(stage);
         if (datei != null) {
